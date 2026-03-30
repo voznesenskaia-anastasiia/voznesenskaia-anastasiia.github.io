@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>index</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,600&display=swap" rel="stylesheet"/>
+  <style>
+    /* ── Reset & Base ─────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:      #002642;
+      --muted:    #840032;
+      --rule:     #e59500;
+      --cream:    #e5dada;
+      --accent:   #02040f;
+      --col:      680px;         /* max content column width */
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--ink);
+      background: var(--cream);
+    }
+
+    /* ── HERO HEADER ──────────────────────────────────── */
+    /*
+      Replace the background-image URL with your own photo.
+      Recommended: a wide, landscape image (≥ 1600 × 500 px).
+    */
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 420px;                          /* adjust height to taste */
+      background-image: url('images/From_The_Window.jpg');
+      background-size: cover;
+      background-position: center top;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    /* Dark overlay so text is always readable */
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,.45) 0%,
+        rgba(0,0,0,.60) 60%,
+        rgba(0,0,0,.75) 100%
+      );
+    }
+
+    .hero-text {
+      position: relative;
+      z-index: 1;
+      color: #fff;
+      padding: 0 1.5rem;
+    }
+
+    .hero-text h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(2rem, 5vw, 3.6rem);
+      font-weight: 700;
+      letter-spacing: .03em;
+      text-shadow: 0 2px 12px rgba(0,0,0,.5);
+    }
+
+    .hero-text p {
+      margin-top: .5rem;
+      font-size: clamp(.95rem, 2vw, 1.2rem);
+      font-weight: 300;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      opacity: .88;
+      color: #e5dada;
+    }
+
+    /* ── NAV BAR ──────────────────────────────────────── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #002642;
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      border-bottom: 3px solid var(--accent);
+    }
+
+    nav a {
+      color: #e8e0d4;
+      text-decoration: none;
+      font-family: 'Source Serif 4', serif;
+      font-size: .82rem;
+      font-weight: 600;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      padding: .85rem 1.6rem;
+      transition: color .2s, background .2s;
+    }
+
+    nav a:hover { color: #fff; background: rgba(255,255,255,.08); }
+
+    /* ── MAIN LAYOUT ──────────────────────────────────── */
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 5rem;
+    }
+
+    /* ── SECTION ──────────────────────────────────────── */
+    .section {
+      margin-bottom: 4rem;
+      padding-bottom: 4rem;
+      border-bottom: 1px solid var(--rule);
+    }
+    .section:last-child { border-bottom: none; }
+
+    .section-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 1.4rem;
+      padding-bottom: .5rem;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    .subsection { margin-bottom: 2.4rem; }
+
+    .subsection h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-style: italic;
+      color: var(--accent);
+      margin-bottom: .6rem;
+    }
+
+    /* ── CONTENT COLUMN (centered prose) ─────────────── */
+    /*
+      The .content-col class centres text to a comfortable reading width.
+      Figures placed inside .fig-left or .fig-right float beside this column.
+    */
+    .content-col {
+      max-width: var(--col);
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    p { margin-bottom: 1rem; color: var(--ink); }
+    p:last-child { margin-bottom: 0; }
+
+    /* ── OUTER WRAPPER (needed for margin positioning) ── */
+.content-wrap {
+  position: relative;
+  max-width: var(--col);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ── MARGIN FIGURES ─────────────────────────────── */
+.fig-left, .fig-right {
+  position: absolute;
+  width: 220px;
+  font-size: .82rem;
+  line-height: 1.4;
+  color: var(--muted);
+}
+
+.fig-left  { right: calc(100% + 2rem); top: 0; text-align: right; }
+.fig-right { left:  calc(100% + 2rem); top: 0; text-align: left;  }
+
+.fig-left img, .fig-right img {
+  width: 100%;
+  display: block;
+  border: 1px solid var(--rule);
+  box-shadow: 2px 3px 10px rgba(0,0,0,.1);
+}
+
+figcaption {
+  margin-top: .45rem;
+  font-style: italic;
+}
+
+/* Hide margin figures on small screens — not enough room */
+@media (max-width: 1000px) {
+  .fig-left, .fig-right {
+    position: static;
+    width: 100%;
+    margin: 1rem 0;
+    text-align: left;
+  }
+}
+
+    /* ── PUBLICATIONS LIST ────────────────────────────── */
+    .pub-list { list-style: none; padding: 0; }
+
+    .pub-list li {
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--rule);
+      line-height: 1.65;
+    }
+
+    .pub-list li:last-child { border-bottom: none; }
+
+    .pub-title { font-weight: 600; }
+    .pub-authors { color: var(--muted); font-size: .92rem; }
+    .pub-venue { font-style: italic; color: var(--accent); font-size: .92rem; }
+
+    /* ── FOOTER ───────────────────────────────────────── */
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: .82rem;
+      color: var(--muted);
+      border-top: 1px solid var(--rule);
+    }
+
+    /* ── RESPONSIVE ───────────────────────────────────── */
+    @media (max-width: 700px) {
+      .fig-left, .fig-right {
+        float: none;
+        width: 100%;
+        margin: 1rem 0;
+      }
+      .hero { height: 300px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ════════════════════════════════════════════════════
+       HERO HEADER
+       ════════════════════════════════════════════════════ -->
+  <header class="hero">
+    <!--
+      To use your own photo:
+        background-image: url('path/to/your-photo.jpg');
+      in the .hero CSS rule above.
+    -->
+    <div class="hero-text">
+      <h1>Anastasiia Voznesenskaia</h1>
+      <p>PhD Candidate · Department of Linguistics · Stony Brook University</p>
+    </div>
+  </header>
+
+  <!-- ════════════════════════════════════════════════════
+       STICKY NAVIGATION
+       ════════════════════════════════════════════════════ -->
+  <nav>
+    <a href="#about">About</a>
+    <a href="#research">Research</a>
+    <a href="#publications">Publications</a>
+    <a href="#presentations">Selected presentations</a>
+    <a href="#teaching">Teaching</a>
+    <a href="#service">Service</a>
+    <a href="#contact">Contact and CV</a>
+  </nav>
+
+  <!-- ════════════════════════════════════════════════════
+       MAIN CONTENT
+       ════════════════════════════════════════════════════ -->
+  <main>
+
+    <!-- ── ABOUT ───────────────────────────────────────── -->
+    <section id="about" class="section">
+      <h2 class="section-title">About</h2>
+      <div class="content-wrap">
+        <div class="content-col clearfix">
+
+          <!-- Figure floated to the RIGHT of the text -->
+          <figure class="fig-left" style="top: 0px;">
+            <img src="images/me.jpg" alt="me"/>
+          </figure>
+
+          <figure class="fig-right">
+            <img src="images/msu.jpg" alt="msu"/>
+            <figcaption>MSU from the a Linguistics Department window</figcaption>
+          </figure>
+
+          <p>
+            I am a PhD candidate at the Department of Linguistics at Stony Brook University. 
+            I am advised by <a href="https://sites.google.com/stonybrook.edu/johnfbailyn/" style="color:var(--accent)">John F. Bailyn</a>. 
+            My research questions always start with theoretical syntax but I am very interested in areas and methodoligies I encounter along the way. 
+          </p>  
+          <p>
+            I did my undergraduate and masters studies at the <a href="http://tipl.philol.msu.ru" style="color:var(--accent)">Department of Linguistics at Lomonosov Moscow State University</a>,
+            where linguists are &ldquo;brought up&rdquo; doing fieldwork. There I was advised by <a href="https://lyutikova.com/" style="color:var(--accent)">Ekaterina Lyutikova</a> and 
+            <a href="https://scholar.google.com/citations?hl=ru&user=eH2ErAQAAAAJ&view_op=list_works&sortby=pubdate" style="color:var(--accent)">Sergei Tatevosov</a>.
+            That is how I got into working on the syntax of underdocumented languages. I have also been working on island effects in Russian,
+            which is what lead me into experimental syntax. Lately, 
+            I have also been interested in linking processing effects to syntactic structures through parsing theory.
+          </p>
+          <figure class="fig-left" style="top: 260px;">
+            <img src="images/climb.JPG" alt="climb"/>
+            <figcaption>Geyikbayırı, Türkiye</figcaption>
+          </figure>
+          <p>
+            To do all that and stay sane, I also enjoy rock-climbing, pole sport, dancing, cooking unseen amounts of food, 
+            singing to my guitar and video-calling my friends all over the world. Proud 
+            <a href="https://www.cwa1104gseu.com/gseu-stony-brook" style="color:var(--accent)">GSEU</a>
+            member.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── RESEARCH ─────────────────────────────────────── -->
+    <section id="research" class="section">
+      <h2 class="section-title">Research experience</h2>
+
+      <!-- Fieldwork -->
+      <div class="subsection">
+        <h3>Fieldwork</h3>
+        <div class="content-wrap">
+          <div class="content-col clearfix">
+
+            <!-- Figure floated to the LEFT of the text -->
+            <figure class="fig-left">
+              <img src="images/chair.jpg" alt="chair"/>
+              <figcaption>Law of hiking: if you hike far enough, you will find a chair</figcaption>
+            </figure>
+
+            <figure class="fig-right" style="top: 0px;">
+              <img src="images/us.JPG" alt="us"/>
+              <figcaption>Lomonosov MSU Balkar fieldwork group, 2021</figcaption>
+            </figure>
+
+            <p>
+              I find fieldwork to be one of the most fulfilling methods of gathering linguistic data. 
+              I started doing fieldwork as a student at Lomonosov MSU, where many researchers work on documentation of indigenous
+              (and endangered) languages of Russia. First, I was part of the Uralic fieldwork group lead by
+              <a href="https://scholar.google.com/citations?user=gw5uYkoAAAAJ&hl=en" style="color:var(--accent)">Svetlana Toldova</a>, and worked on 
+              <a href="https://en.wikipedia.org/wiki/Hill_Mari_language" style="color:var(--accent)">Hill Mari</a> in 2016-2017. 
+              Then I joined another group, one of mountainous fieldwork enjoyers lead by 
+              <a href="https://scholar.google.com/citations?user=eH2ErAQAAAAJ&hl=en" style="color:var(--accent)">Sergei Tatevosov</a>, and worked on 
+              <a href="https://en.wikipedia.org/wiki/Buryat_language" style="color:var(--accent)">Buryat</a> (a Mongolic language) in 2017-2018
+              and <a href="https://en.wikipedia.org/wiki/Karachay-Balkar" style="color:var(--accent)">Balkar</a> (a Turkic language) in 2019-2021. 
+              I have also done some fieldwork on Georgian in 2018. Currently, I have plans to start fieldwork on a new language. Stay tuned!
+            </p>
+            <figure class="fig-right" style="top: 200px;">
+              <img src="images/valley.JPG" alt="valley"/>
+              <figcaption>Verkhnyaya Balkariya, Kabardino-Balkarian Republic, Russia</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+
+      <!-- Experiments -->
+      <div class="subsection">
+        <h3>Experimental syntax</h3>
+        <div class="content-wrap">
+          <div class="content-col clearfix">
+
+            <figure class="fig-left">
+              <img src="images/grouped by subject faceted by config-1.png" alt="plot"/>
+              <figcaption>Plot of mean ratings by subject, experiment on islandhood of yes/no questions in Russian</figcaption>
+            </figure>
+
+            <p>
+              I started studying island effects in Russian experimentally in 2019 as part of the 
+              <a href="https://expsynt.com/" style="color:var(--accent)">Moscow Experimental Syntax Group</a>. 
+              I continue working on island effects in Russian using experimental methods during my time at Stony Brook University. 
+              My second QP was built around an experimental study of island effects using audio stimuli.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Locality project -->
+      <div class="subsection">
+        <h3>Locality project</h3>
+        <div class="content-wrap">
+          <div class="content-col">
+              <figure class="fig-right">
+                <img src="images/workshop.png" alt="workshop"/>
+                <figcaption>Workshop on Locality flyer</figcaption>
+              </figure>
+            <p>
+              Throughout Fall 2024-Spring 2025 I was a Research Assistant on the project called Syntactic Locality: an interface of typology,
+              theory and computation, with 
+              <a href="https://scholar.google.com/citations?user=cfxs9uEAAAAJ&hl=en" style="color:var(--accent)">Thomas McFadden</a> as PI and
+              <a href="https://thomasgraf.net/" style="color:var(--accent)">Thomas Graf</a>,
+              <a href="https://www.sndrsn.org/" style="color:var(--accent)">Sandhya Sundaresan</a>, and 
+              <a href="https://sites.google.com/stonybrook.edu/johnfbailyn/" style="color:var(--accent)">John F. Bailyn</a> as co-PIs. 
+              This project was funded by an OVPR seed grant at Stony Brook University. This project yielded an initial version of two resources:
+              1) A representative typology of locality phenomena; 
+              2) A curated survey of theoretical approaches to locality. 
+              A Workshop on Locality was held (co-organized by me) at Stony Brook.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── PUBLICATIONS ─────────────────────────────────── -->
+    <section id="publications" class="section">
+      <h2 class="section-title">Publications</h2>
+
+      <div class="subsection">
+        <h3>Peer-reviewed</h3>
+        <div class="content-col">
+          <ul class="pub-list">
+          <li>
+            <div class="pub-title">What Backward Negative Concord tells us about control</div>
+            <div class="pub-authors">Anastasiia Voznesenskaia</div>
+            <div class="pub-venue">(Submitted to NLLT)</div>
+          </li>
+          <li>
+            <div class="pub-title">Yes-no questions in Balkar</div>
+            <div class="pub-authors">Maria Manina, Anastasiia Voznesenskaia</div>
+            <div class="pub-venue">Proceedings of the Workshop on Turkic and Languages in Contact with Turkic, Vol. 7(1), 104-113. 2022</div>
+          </li>
+          <li>
+            <div class="pub-title"><i>Wh</i>-questions in Balkar</div>
+            <div class="pub-authors">Anastasiia Voznesenskaia</div>
+            <div class="pub-venue">Proceedings of the Workshop on Turkic and Languages in Contact with Turkic (Vol. 5(1), 163-172. 2020</div>
+          </li>
+          <li>
+            <div class="pub-title">Nominalizations in Hill Mari</div>
+            <div class="pub-authors">Anastasiia Voznesenskaia</div>
+            <div class="pub-venue">Finno-Ugric Languages and Linguistics. Vol. 8(1). 36–49. 2019</div>
+          </li>
+        </ul>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3>Conference proceedings (non peer-reviewed)</h3>
+        <div class="content-col">
+          <ul class="pub-list">
+          <li>
+            <div class="pub-title">The extraction of direct objects out of indirect yes/no questions in Russian</div>
+            <div class="pub-authors">Anastasiia Voznesenskaia</div>
+            <div class="pub-venue">Typology of Morphosyntactic Parameters, Vol. 3(2), 11-28. 2020</div>
+          </li>
+          <li>
+            <div class="pub-title">Restrictor restrictions: what kind of restrictors do negative floating 
+              quantifiers in Russian require? </div>
+            <div class="pub-authors">Anastasiia Voznesenskaia</div>
+            <div class="pub-venue">Typology of Morphosyntactic Parameters. Vol. 2(2). 27–53. 2019</div>
+          </li>
+          <li>
+            <div class="pub-title">Buryat Question Particles and Where to Find Them</div>
+            <div class="pub-authors">Anastasiia Voznesenskaia</div>
+            <div class="pub-venue">Conference on Central Asian Languages and Linguistics. 95–104. 2018</div>
+          </li>
+        </ul>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3>Volume contributions</h3>
+        <div class="content-col">
+          <ul class="pub-list">
+          <li>
+            <div class="pub-title">&#268;astnyj vopros v Balkarskom Yazyke [<i>Wh</i>-questions in Balkar]</div>
+            <div class="pub-authors">Maria Manina, Anastasiia Voznesenskaia</div>
+            <div class="pub-venue">Sergei Tatevosov, Petr Rossyaykin (eds.), 
+              <i>Balkarskiye etjudy</i> [Balkar sketches]. (in preparation)</div>
+          </li>
+          <li>
+            <div class="pub-title">Ob&#353;&#269;ij vopros v Balkarskom Yazyke [Yes/no-questions in Balkar]</div>
+            <div class="pub-authors">Maria Manina, Anastasiia Voznesenskaia</div>
+            <div class="pub-venue">Sergei Tatevosov, Petr Rossyaykin (eds.), 
+              <i>Balkarskiye etjudy</i> [Balkar sketches]. (in preparation)</div>
+          </li>
+          <li>
+            <div class="pub-title">Ostrovnye svojstva kosvennogo voprosa s <i>li</i> [Island effects in Russian li-questions]</div>
+            <div class="pub-authors">Anastasiia Voznesenskaia</div>
+            <div class="pub-venue">Ekaterina Lyutikova, Anastasia Gerasimova (eds.), 
+              <i>Russkie ostrova v svete experimental’nyx dannyx</i> [Russian Islands in light of experimental data]. Moscow. 2021</div>
+          </li>
+          <li>
+            <div class="pub-title">An emerging veridical complementizer to čto in Russian</div>
+            <div class="pub-authors">Alexandra Simonenko, Anastasiia Voznesenskaia</div>
+            <div class="pub-venue">Metin Bağrıaçık, Anne Breitbarth, and Karen De Clercq (eds.), Mapping Linguistic Data. 
+              Essays in honour of Liliane Haegeman. WebFestschrift. Ghent: Ghent University. 2019</div>
+          </li>
+          <li>
+            <div class="pub-title">Licenzirovanije otricatel’nyx plavayu&#353;&#269;ix kvantorov v russkom jazyke 
+              [The licensing of negative floating quantifiers in Russian]</div>
+            <div class="pub-authors">Anastasiia Voznesenskaia</div>
+            <div class="pub-venue">V.N. Stepanov, L.V. Uxova (eds.), Russkaja Grammatika: aktivnye processy v jazyke i re&#269;i 
+              [Russian Grammar: active processes in language and speech]. Yaroslavl. 2019</div>
+          </li>
+        </ul>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3>Book reviews</h3>
+        <div class="content-col">
+          <ul class="pub-list">
+          <li>
+            <div class="pub-title">Review of 
+              <i>Gréte Dalmi, Jacek Witkoś & Piotr Cegłowski (eds.), Strict negative concord in Slavic and Finno-Ugric: 
+                Licensing, structure and interpretation</i> (Berlin, Boston: De Gruyter Mouton, 2024)</div>
+            <div class="pub-authors">Anastasiia Voznesenskaia</div>
+            <div class="pub-venue">Journal of Linguistics, Vol. 61(2), 463-466. 2025</div>
+          </li>
+        </ul>
+        </div>
+      </div>
+
+    <div class="subsection">
+        <h3>Manuscripts</h3>
+        <div class="content-col">
+          <ul class="pub-list">
+          <li>
+            <div class="pub-title">Island effects in Russian indirect yes/no questions (in Russian)</div>
+            <div class="pub-authors">Anastasiia Voznesenskaia. Advisor: <a href="https://lyutikova.com/" style="color:var(--accent)">Ekaterina Lyutikova</a></div>
+            <div class="pub-venue">Master's thesis. Lomonosov Moscow State University. 2021.</div>
+          </li>
+          <li>
+            <div class="pub-title">The syntax of Negative Floating Quantifiers in Russian (in Russian)</div>
+            <div class="pub-authors">Anastasiia Voznesenskaia. Advisor: <a href="https://lyutikova.com/" style="color:var(--accent)">Ekaterina Lyutikova</a></div>
+            <div class="pub-venue">Bachelor’s thesis. Lomonosov Moscow State University. 2019.</div>
+          </li>
+        </ul>
+        </div>
+      </div>
+
+      
+    </section>
+
+    <!-- ── SELECTED PRESENTATIONS ─────────────────────────────────── -->
+    <section id="presentations" class="section">
+      <h2 class="section-title">Selected presentations</h2>
+
+      <div class="content-col">
+        <ul class="pub-list">
+          <li>
+            <div class="pub-title">A minimalist parsing account of object preference in Korean Floating Quantifiers</div>
+            <div class="pub-authors">Robin Doyle, Anastasiia Voznesenskaia</div>
+            <div class="pub-venue">SYNC 2025, CUNY Graduate center. December 6, 2025</div>
+          </li>
+          <li>
+            <div class="pub-title">Backward Negative Concord in Russian</div>
+            <div class="pub-authors">Anastasiia Voznesenskaia</div>
+            <div class="pub-venue">GLOW 47: Generative Linguistics in the Old World, Goethe University Frankfurt. March 24–28, 2025</div>
+          </li>
+          <li>
+            <div class="pub-title">Backward Negative Concord in Control Structures</div>
+            <div class="pub-authors">Anastasiia Voznesenskaia</div>
+            <div class="pub-venue">FASL 33: Formal Approaches to Slavic Linguistics, Dalhousie University. May 16–19, 2024</div>
+          </li>
+          <li>
+            <div class="pub-title">MI the almighty: yes-no questions in Balkar</div>
+            <div class="pub-authors">Maria Manina, Anastasiia Voznesenskaia</div>
+            <div class="pub-venue">TU+7: Workshop on Turkic Languages and Languages in Contact with Turkic, University of Connecticut. February 18-19, 2022</div>
+          </li>
+          <li>
+            <div class="pub-title">Island effects in indirect li-questions (in Russian)</div>
+            <div class="pub-authors">Anastasiia Voznesenskaia</div>
+            <div class="pub-venue">Typology of Morphosyntactic Parameters 10, Institute of Linguistics, Russian Academy of Sciences. October 7–9, 2020</div>
+          </li>
+          <li>
+            <div class="pub-title">Wh-questions in Balkar: an argument in favor of the choice function approach (poster)</div>
+            <div class="pub-authors">Anastasiia Voznesenskaia</div>
+            <div class="pub-venue">TU+5: Workshop on Turkic and languages in Contact with Turkic, University of Delaware. February 8–9, 2020</div>
+          </li>
+          <li>
+            <div class="pub-title">Negative floating quantifiers: restrictor restrictions (in Russian)</div>
+            <div class="pub-authors">Anastasiia Voznesenskaia</div>
+            <div class="pub-venue">Typology of Morphosyntactic Parameters 9, Institute of Linguistics, Russian Academy of Sciences. October 16–18, 2019</div>
+          </li>
+          <li>
+            <div class="pub-title">-er nominals in Georgian (poster)</div>
+            <div class="pub-authors">Anastasiia Voznesenskaia</div>
+            <div class="pub-venue">TABU Dag, University of Groningen. June 14-15, 2018</div>
+          </li>
+          <li>
+            <div class="pub-title">Deadjectival Nominals in Georgian</div>
+            <div class="pub-authors">Anastasiia Voznesenskaia</div>
+            <div class="pub-venue">CULC 12: Cornell Undergraduate Linguistics Colloquium. April 28-29, 2018</div>
+          </li>
+          <li>
+            <div class="pub-title">Buryat Question Particles and Where To Find Them</div>
+            <div class="pub-authors">Anastasiia Voznesenskaia</div>
+            <div class="pub-venue">ConCALL: Conference on Central Asian Languages and Linguistics, Indiana University Bloomington. March 2-4, 2018</div>
+          </li>
+          <li>
+            <div class="pub-title">Nominalizations in Hill Mari</div>
+            <div class="pub-authors">Anastasiia Voznesenskaia</div>
+            <div class="pub-venue">SOUL 2017: Conference on the Syntax Of Uralic Languages, Research Institute for Linguistics, Hungarian Academy of Sciences. June 27-28, 2017</div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ── TEACHING ─────────────────────────────────────── -->
+    <section id="teaching" class="section">
+      <h2 class="section-title">Teaching</h2>
+
+      <div class="subsection">
+        <h3>University level</h3>
+        <div class="content-col">
+          <p>LIN 311: Syntax, Teaching assistant; Spring 2026</p>
+          <p>LIN 200: Language in the United States, Primary instructor (with Pardis Derakhshandeh and Daniel Greeson); Winter 2026</p>
+          <p>LIN 431: The structure of an uncommonly taught language (field methods), Sorani Kurdish, Teaching Assistant; Fall 2025</p>
+          <p>LIN 431: The structure of an uncommonly taught language (field methods), Malayalam, Teaching Assistant; Fall 2023</p>
+          <p>LIN 101: Human language, Teaching Assistant; Spring 2023</p>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3>Other experience</h3>
+        <div class="content-col">
+          <p>English as a Second Language teacher (middle & high school). <a href="https://english.n.school/" style="color:var(--accent)">Novaya Shkola</a>, Moscow, Russia, 2020-2022</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── SERVICE ─────────────────────────────────────── -->
+    <section id="service" class="section">
+      <h2 class="section-title">Service</h2>
+      <div class="content-wrap">
+        <div class="content-col">
+          <p>SBU Department of Linguistics GSEU mobilizer (2025-present)</p>
+          <p>Reviewing (conferences):
+            <ul>
+              <li><a href="https://sync25.commons.gc.cuny.edu/" style="color:var(--accent)">SYNC</a> </li>
+              <li>TU+7 (Seventh Workshop on Turkic and Languages in Contact with Turkic)</li>
+            </ul>
+          </p>
+          <p>SBU linguistics Colloquium Organizer (2024-2025)</p>
+          <p>SBU GSO Senator for Department of Linguistics (2024)</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CONTACT ──────────────────────────────────────── -->
+    <section id="contact" class="section">
+      <h2 class="section-title">Contact and CV</h2>
+
+      <div class="content-col">
+        <p>
+          <strong>Email:</strong> anastasiia.voznesenskaia@stonybrook.edu<br/>
+        </p>
+        <p>
+          You can also find me on
+          <a href="https://sbsuny.academia.edu/AnastasiiaVoznesenskaia" style="color:var(--accent)">Academia.edu</a>.
+        </p>
+        <p>You can find my full CV here.</p>
+      </div>
+    </section>
+
+  </main>
+
+<footer>
+    Header image: view from the Linguistics Department at Lomonosov Moscow State University
+  </footer>
+
+</body>
+</html>
